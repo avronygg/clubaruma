@@ -1,0 +1,15 @@
+WEBVTT
+
+NOTE
+Subtítulos del reel de Aruma Club. El archivo está vacío a propósito: hay que
+transcribir lo que se dice en el vídeo.
+
+Sin subtítulos, el mensaje no llega a quien no oye, y tampoco a la mayoría de
+gente que ve vídeo en redes con el sonido apagado.
+
+Formato de cada línea:
+
+  00:00.000 --> 00:03.500
+  Texto que se dice en ese tramo.
+
+Cuando se rellene, aparecen solos en el reproductor ampliado.

@@ -1,0 +1,66 @@
+import { Reveal } from '@/components/animations/Reveal'
+import { Button } from '@/components/ui/Button'
+import { Container } from '@/components/ui/Container'
+import { Eyebrow } from '@/components/ui/Eyebrow'
+import { Figure } from '@/components/ui/Figure'
+import { Heading } from '@/components/ui/Heading'
+import { Section } from '@/components/ui/Section'
+import { cocktails } from '@/data/home'
+import { cocktail } from '@/data/media'
+
+const TITLE_ID = 'cocteleria-titulo'
+
+/**
+ * Coctelería.
+ *
+ * Se invierte la lectura respecto a la sección anterior: imagen a la izquierda,
+ * texto a la derecha. La alternancia es lo que sostiene el ritmo editorial de
+ * la página sin recurrir a tarjetas.
+ */
+export function Cocktails() {
+  return (
+    <Section id={cocktails.id} aria-labelledby={TITLE_ID} className="bg-black-soft">
+      <Container>
+        <div className="grid grid-cols-12 items-center gap-x-8 gap-y-12">
+          <div className="col-span-12 lg:col-span-6">
+            <Figure
+              media={cocktail}
+              parallax
+              sizes="(min-width: 1024px) 46vw, 92vw"
+              caption="Cóctel de autor · Aruma Club"
+              from="left"
+              hover
+            />
+          </div>
+
+          <div className="col-span-12 lg:col-span-5 lg:col-start-8">
+            <Reveal>
+              <Eyebrow index={cocktails.index}>{cocktails.eyebrow}</Eyebrow>
+            </Reveal>
+
+            <Reveal delay={0.08}>
+              <Heading
+                id={TITLE_ID}
+                lead={cocktails.title[0]}
+                accent={cocktails.title[1]}
+                className="mt-7"
+              />
+            </Reveal>
+
+            <Reveal delay={0.14}>
+              <p className="mt-8 max-w-prose text-lead text-gray">{cocktails.body}</p>
+            </Reveal>
+
+            {cocktails.cta ? (
+              <Reveal delay={0.2}>
+                <Button href={cocktails.cta.href} variant="ghost" className="mt-10">
+                  {cocktails.cta.label}
+                </Button>
+              </Reveal>
+            ) : null}
+          </div>
+        </div>
+      </Container>
+    </Section>
+  )
+}

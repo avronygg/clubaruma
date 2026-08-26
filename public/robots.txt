@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# El sitemap se declara cuando el dominio definitivo esté decidido. Apuntar a
+# uno que devuelve 404 es peor que no declarar ninguno.

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#050505" />
+
+    <!-- Title, description, canonical, Open Graph y Twitter Card los renderiza
+         <Seo> por página (React 19 los eleva al head). Aquí solo queda el
+         fallback estático para clientes sin JavaScript. -->
+    <title>ARUMA CLUB — Donde la noche cobra vida</title>
+    <meta
+      name="description"
+      content="Aruma Club. Una experiencia nocturna exclusiva donde la coctelería, la música y el ambiente se encuentran."
+    />
+
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Tipografías críticas: ambas aparecen sobre la línea de flotación. -->
+    <link
+      rel="preload"
+      href="/fonts/inter-tight-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/cormorant-garamond-latin-wght-italic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- LCP: se precarga únicamente el encuadre que va a usar el dispositivo.
+         Solo AVIF; los navegadores que no lo soporten ignoran el enlace por
+         `type` y cargan el WebP por la vía normal. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/avif"
+      media="(min-width: 64rem)"
+      fetchpriority="high"
+      imagesizes="100vw"
+      imagesrcset="
+        /images/hero-desktop-1024.avif 1024w,
+        /images/hero-desktop-1280.avif 1280w,
+        /images/hero-desktop-1600.avif 1600w,
+        /images/hero-desktop-1920.avif 1920w"
+    />
+    <link
+      rel="preload"
+      as="image"
+      type="image/avif"
+      media="(max-width: 63.999rem)"
+      fetchpriority="high"
+      imagesizes="100vw"
+      imagesrcset="
+        /images/hero-mobile-480.avif 480w,
+        /images/hero-mobile-640.avif 640w,
+        /images/hero-mobile-828.avif 828w,
+        /images/hero-mobile-1080.avif 1080w,
+        /images/hero-mobile-1290.avif 1290w"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "NightClub",
+        "name": "Aruma Club",
+        "alternateName": "ARUMA",
+        "description": "Una experiencia nocturna exclusiva donde la coctelería, la música y el ambiente se encuentran.",
+        "url": "https://arumaclub.cl",
+        "image": "https://arumaclub.cl/og-image.jpg",
+        "servesCuisine": "Coctelería de autor",
+        "sameAs": ["https://instagram.com/arumaclub"]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 2rem; color: #f5f5f5; font-family: sans-serif">
+        Aruma Club — Donde la noche cobra vida. Activa JavaScript para ver el sitio completo.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
