@@ -10,8 +10,15 @@ import type { OpeningHours, SocialLink } from '@/types'
 export const site = {
   name: 'Aruma Club',
   shortName: 'ARUMA',
-  /** TODO: sustituir por el dominio definitivo. */
-  url: 'https://arumaclub.cl',
+  /**
+   * Dominio público. Sale del entorno, igual que la sustitución de
+   * `%SITE_URL%` en `index.html`, para que el canonical y las etiquetas Open
+   * Graph estáticas apunten siempre al mismo sitio.
+   *
+   * TODO: cuando el dominio definitivo esté activo, basta con cambiar
+   * `VITE_SITE_URL` en Vercel. El código no se toca.
+   */
+  url: (import.meta.env['VITE_SITE_URL'] ?? 'https://arumaclub.cl').replace(/\/$/, ''),
   locale: 'es-CL',
   /** Va en cursiva al pie. Sitúa ciudad y horario en cinco palabras. */
   tagline: 'Ovalle, después de medianoche.',

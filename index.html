@@ -7,14 +7,61 @@
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#050505" />
 
-    <!-- Title, description, canonical, Open Graph y Twitter Card los renderiza
-         <Seo> por página (React 19 los eleva al head). Aquí solo queda el
-         fallback estático para clientes sin JavaScript. -->
-    <title>ARUMA CLUB — Donde la noche cobra vida</title>
+    <!-- Estas etiquetas están aquí, y no solo en <Seo>, a propósito.
+
+         Los robots que generan la vista previa de un enlace en WhatsApp,
+         Facebook e Instagram no ejecutan JavaScript: leen el HTML tal como sale
+         del servidor y se van. Si el título y la imagen solo aparecieran tras
+         hidratar React, compartir la web por WhatsApp mostraría una tarjeta
+         vacía, que es justo el canal por donde va a circular este enlace.
+
+         <Seo> las vuelve a emitir en el cliente. Para no acabar con dos
+         títulos y dos descripciones en el head, van marcadas con
+         `data-seo="static"` y <Seo> las retira al montar: el robot sin
+         JavaScript se lleva estas, el navegador se queda con las de React.
+         Mantener ambas sincronizadas con `src/data/site.ts`.
+
+         `%SITE_URL%` lo sustituye el plugin `aruma-site-url` de vite.config.ts
+         con `VITE_SITE_URL`. -->
+    <title data-seo="static">Aruma Club · Club nocturno en Ovalle · Lista VIP</title>
     <meta
+      data-seo="static"
       name="description"
-      content="Aruma Club. Una experiencia nocturna exclusiva donde la coctelería, la música y el ambiente se encuentran."
+      content="Aruma Club abre en septiembre de 2026 en el Ovalle Casino &amp; Resort, para mayores de 25. Coctelería de autor y DJ en vivo. Entra a la lista VIP."
     />
+    <link data-seo="static" rel="canonical" href="%SITE_URL%/" />
+
+    <meta data-seo="static" property="og:type" content="website" />
+    <meta data-seo="static" property="og:site_name" content="Aruma Club" />
+    <meta data-seo="static" property="og:locale" content="es_CL" />
+    <meta
+      data-seo="static"
+      property="og:title"
+      content="Aruma Club · Club nocturno en Ovalle · Lista VIP"
+    />
+    <meta
+      data-seo="static"
+      property="og:description"
+      content="Aruma Club abre en septiembre de 2026 en el Ovalle Casino &amp; Resort, para mayores de 25. Coctelería de autor y DJ en vivo. Entra a la lista VIP."
+    />
+    <meta data-seo="static" property="og:url" content="%SITE_URL%/" />
+    <meta data-seo="static" property="og:image" content="%SITE_URL%/og-image.jpg" />
+    <meta data-seo="static" property="og:image:width" content="1200" />
+    <meta data-seo="static" property="og:image:height" content="630" />
+    <meta data-seo="static" property="og:image:alt" content="Aruma Club, club nocturno en Ovalle" />
+
+    <meta data-seo="static" name="twitter:card" content="summary_large_image" />
+    <meta
+      data-seo="static"
+      name="twitter:title"
+      content="Aruma Club · Club nocturno en Ovalle · Lista VIP"
+    />
+    <meta
+      data-seo="static"
+      name="twitter:description"
+      content="Aruma Club abre en septiembre de 2026 en el Ovalle Casino &amp; Resort. Entra a la lista VIP."
+    />
+    <meta data-seo="static" name="twitter:image" content="%SITE_URL%/og-image.jpg" />
 
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png" />
@@ -68,16 +115,31 @@
         /images/hero-mobile-1290.avif 1290w"
     />
 
+    <!-- Datos estructurados. `openingDate` y `NightClub` le dicen a Google que
+         esto es un local que todavía no ha abierto, en lugar de uno en marcha
+         cuyo horario no encuentra. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "NightClub",
         "name": "Aruma Club",
         "alternateName": "ARUMA",
-        "description": "Una experiencia nocturna exclusiva donde la coctelería, la música y el ambiente se encuentran.",
-        "url": "https://arumaclub.cl",
-        "image": "https://arumaclub.cl/og-image.jpg",
+        "description": "Club nocturno en Ovalle. Coctelería de autor y DJ en vivo, dentro del Ovalle Casino & Resort.",
+        "url": "%SITE_URL%/",
+        "image": "%SITE_URL%/og-image.jpg",
+        "openingDate": "2026-09",
         "servesCuisine": "Coctelería de autor",
+        "containedInPlace": {
+          "@type": "Place",
+          "name": "Ovalle Casino & Resort"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Manuel Peñafiel Olivares 2711",
+          "addressLocality": "Ovalle",
+          "addressRegion": "Región de Coquimbo",
+          "addressCountry": "CL"
+        },
         "sameAs": ["https://instagram.com/arumaclub"]
       }
     </script>
@@ -86,7 +148,8 @@
     <div id="root"></div>
     <noscript>
       <p style="padding: 2rem; color: #f5f5f5; font-family: sans-serif">
-        Aruma Club — Donde la noche cobra vida. Activa JavaScript para ver el sitio completo.
+        Aruma Club abre en septiembre de 2026 en el Ovalle Casino &amp; Resort, Av. Manuel Peñafiel
+        Olivares 2711, Ovalle. Activa JavaScript para ver el sitio completo.
       </p>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>

@@ -100,10 +100,6 @@ export function Hero() {
       >
         <Container className="flex flex-1 flex-col items-center justify-end pt-nav pb-[clamp(2rem,5vh,4.5rem)] text-center">
           <h1 className="m-0 flex flex-col items-center">
-            {/* El nombre de marca queda en el h1 aunque no se pinte: el rótulo
-                visible sobraba junto al logotipo de la navbar y al badge. */}
-            <span className="sr-only">{hero.eyebrow} — </span>
-
             {/* Cada mitad en su propia línea. Dejado al ajuste natural, el
                 titular partía como «Sé VIP desde la / primera noche.» y
                 abandonaba el artículo al final del renglón. */}

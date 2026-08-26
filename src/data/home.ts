@@ -38,8 +38,6 @@ import type { SectionContent } from '@/types'
  */
 
 export const hero = {
-  /** El wordmark no se repite aquí: ya está en la navbar y grabado en el vaso. */
-  eyebrow: 'Aruma Club',
   /**
    * El titular dice qué es y dónde; el distintivo flotante que hay justo
    * encima lleva el cuándo. La ciudad sale de `site.ts` para no tener el dato

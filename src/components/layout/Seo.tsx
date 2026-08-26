@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { site } from '@/data/site'
 
 type SeoProps = {
@@ -33,6 +35,17 @@ export function Seo({
 }: SeoProps) {
   const url = `${site.url}${path}`
   const imageUrl = `${site.url}${image}`
+
+  // `index.html` trae su propio juego de etiquetas para los robots que no
+  // ejecutan JavaScript. En cuanto React monta las suyas, aquellas sobran: dos
+  // títulos y dos descripciones en el mismo head es peor que ninguna, porque
+  // el buscador elige y suele quedarse con la primera, que es la estática y
+  // por tanto la que no se actualiza al navegar.
+  useEffect(() => {
+    document.head.querySelectorAll('[data-seo="static"]').forEach((tag) => {
+      tag.remove()
+    })
+  }, [])
 
   return (
     <>
