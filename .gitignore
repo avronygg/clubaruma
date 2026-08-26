@@ -28,6 +28,10 @@ dist-ssr
 # `public/`, así que el repositorio no los necesita. Guárdalos aparte.
 assets-source/
 
-# Variables de entorno locales
-.env
-.env.local
+# Variables de entorno locales. `.env.example` sí se versiona: es la
+# documentación de qué variables hay que rellenar, no un secreto.
+.env*
+!.env.example
+
+# Enlace con el proyecto de Vercel
+.vercel
