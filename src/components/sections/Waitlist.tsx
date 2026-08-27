@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/animations/Reveal'
+import { Sequence, Step } from '@/components/animations/Sequence'
 import { WaitlistBenefits } from '@/components/forms/WaitlistBenefits'
 import { WaitlistForm } from '@/components/forms/WaitlistForm'
 import { Container } from '@/components/ui/Container'
@@ -34,34 +34,34 @@ export function Waitlist() {
       />
 
       <Container>
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <Reveal>
+        <Sequence className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <Step>
             <Eyebrow index={waitlist.index}>{waitlist.eyebrow}</Eyebrow>
-          </Reveal>
+          </Step>
 
-          <Reveal delay={0.08}>
+          <Step>
             <Logo decorative className="mt-11 w-[clamp(10rem,24vw,18rem)] text-white" />
-          </Reveal>
+          </Step>
 
-          <Reveal delay={0.16}>
+          <Step>
             <h2 id={TITLE_ID} className="mt-11 text-h2 font-light text-white">
               {waitlist.title[0]} <span className="title-accent">{waitlist.title[1]}</span>
             </h2>
-          </Reveal>
+          </Step>
 
-          <Reveal delay={0.22}>
+          <Step>
             <p className="mt-7 max-w-[52ch] text-lead text-gray">{waitlist.body}</p>
-          </Reveal>
+          </Step>
 
-          <Reveal delay={0.26} className="w-full">
+          <Step className="w-full">
             <WaitlistBenefits className="mt-8" />
-          </Reveal>
+          </Step>
 
-          <Reveal delay={0.32} className="mt-10 flex w-full justify-center">
+          <Step className="mt-10 flex w-full justify-center">
             <WaitlistForm source="seccion" />
-          </Reveal>
+          </Step>
 
-          <Reveal delay={0.34}>
+          <Step>
             <p className="mt-12 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-eyebrow text-muted uppercase">
               <span className="flex items-center gap-3">
                 <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-red-bright" />
@@ -82,8 +82,8 @@ export function Waitlist() {
                 </>
               ) : null}
             </p>
-          </Reveal>
-        </div>
+          </Step>
+        </Sequence>
       </Container>
     </Section>
   )

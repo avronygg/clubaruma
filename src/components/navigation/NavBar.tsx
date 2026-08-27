@@ -1,8 +1,12 @@
+import { m } from 'motion/react'
+
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
 import { navigationItems, primaryAction } from '@/data/navigation'
 import { useScrolled } from '@/hooks/useScrolled'
+import { useOverture } from '@/components/layout/Overture'
 import { cn } from '@/lib/cn'
+import { EASE, OVERTURE } from '@/lib/motion'
 
 import { MenuToggle } from './MenuToggle'
 import { MobileMenu } from './MobileMenu'
@@ -37,12 +41,20 @@ type NavBarProps = {
  * respaldo sólido donde no hay `backdrop-filter`.
  */
 export function NavBar({ menuOpen, onMenuToggle, onMenuClose }: NavBarProps) {
+  const { ready } = useOverture()
   const scrolled = useScrolled(32)
   const settled = scrolled && !menuOpen
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-gutter pt-5">
-      <div
+      {/* La píldora baja desde fuera de pantalla al cargar: es lo primero
+          que aparece y lo que da el pie a todo lo demás. La entrada va en
+          Motion y la morfología en CSS, así que no compiten: una escribe
+          `transform` y la otra `height` y `border-radius`. */}
+      <m.div
+        initial={{ opacity: 0, y: -28 }}
+        animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: -28 }}
+        transition={{ duration: 0.9, ease: EASE.expensive, delay: OVERTURE.nav }}
         className={cn(
           'pointer-events-auto relative mx-auto flex flex-col overflow-hidden glass',
           // El cristal anima sus propios parámetros; aquí solo la morfología.
@@ -88,7 +100,7 @@ export function NavBar({ menuOpen, onMenuToggle, onMenuClose }: NavBarProps) {
 
         {/* Contenido del menú, dentro de la misma pieza de cristal. */}
         <MobileMenu id={MENU_ID} open={menuOpen} onClose={onMenuClose} />
-      </div>
+      </m.div>
     </header>
   )
 }

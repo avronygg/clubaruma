@@ -34,7 +34,7 @@ function remember(): void {
  * primera carga de la sesión, nunca con `prefers-reduced-motion`, y se retira en
  * cuanto la página termina de cargar — no impone una espera artificial.
  */
-export function Preloader() {
+export function Preloader({ onDone }: { onDone: () => void }) {
   const reducedMotion = usePrefersReducedMotion()
   const [dismissed, setDismissed] = useState(() => alreadySeen())
 
@@ -42,10 +42,14 @@ export function Preloader() {
   const visible = !dismissed && !reducedMotion
 
   useEffect(() => {
-    if (dismissed) return
+    if (dismissed) {
+      onDone()
+      return
+    }
 
     if (reducedMotion) {
       remember()
+      onDone()
       return
     }
 
@@ -58,6 +62,7 @@ export function Preloader() {
         () => {
           setDismissed(true)
           remember()
+          onDone()
         },
         Math.max(0, MIN_VISIBLE - elapsed),
       )
@@ -76,7 +81,7 @@ export function Preloader() {
       window.clearTimeout(minTimer)
       window.clearTimeout(maxTimer)
     }
-  }, [dismissed, reducedMotion])
+  }, [dismissed, reducedMotion, onDone])
 
   return (
     <AnimatePresence>

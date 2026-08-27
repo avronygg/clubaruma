@@ -42,11 +42,17 @@ export const STAGGER = {
   loose: 0.14,
 } as const
 
-/** Viewport compartido: dispara una sola vez, un poco antes del borde. */
+/**
+ * Viewport compartido: dispara una sola vez, un poco antes del borde.
+ *
+ * `amount` es bajo a propósito. Con un umbral alto, en móvil —donde las
+ * secciones ocupan varias pantallas— el bloque ya se había leído a medias
+ * cuando empezaba a aparecer, y la animación llegaba tarde a su propia fiesta.
+ */
 export const VIEWPORT_ONCE = {
   once: true,
-  amount: 0.2,
-  margin: '0px 0px -12% 0px',
+  amount: 0.15,
+  margin: '0px 0px -10% 0px',
 } as const
 
 export const transition = {
@@ -60,6 +66,59 @@ export const transition = {
 /* ------------------------------------------------------------------------ */
 /* Variants reutilizables                                                     */
 /* ------------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------------ */
+/* Secuencia                                                                  */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * Tiempo entre un paso y el siguiente dentro de una sección.
+ *
+ * 90 ms es el punto en el que se percibe que las cosas llegan una detrás de
+ * otra sin que dé la sensación de estar esperando. Por debajo de 60 el orden
+ * deja de leerse; por encima de 130 la sección se hace lenta de recorrer.
+ */
+export const SEQUENCE_STEP = 0.09
+
+/**
+ * Un paso de la secuencia.
+ *
+ * El desplazamiento es corto y la salida larga: lo que da la sensación de
+ * elegancia es la curva de frenado, no la distancia recorrida.
+ */
+export const step: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: DURATION.reveal, ease: EASE.expensive },
+  },
+}
+
+/**
+ * Obertura: el encadenado de la primera pantalla.
+ *
+ * Los tiempos viven juntos aquí y no repartidos por los componentes porque lo
+ * que importa es el orden relativo. Al tocar uno suelto en su archivo, la
+ * cadena se descuadra y no hay forma de verlo leyendo un solo fichero.
+ *
+ * El guion es: la fotografía arranca su acercamiento, baja la píldora de la
+ * cabecera, entra el titular línea a línea, después el párrafo y los botones,
+ * y al final el distintivo de apertura. Los flotantes tienen sus propios
+ * retardos, mucho más largos, en sus componentes.
+ */
+export const OVERTURE = {
+  /** La píldora de la cabecera cae desde arriba. */
+  nav: 0.2,
+  /** Primera línea del titular. */
+  hero: 0.5,
+  /** Entre líneas del titular, párrafo y botones. */
+  heroStep: 0.16,
+  /** El distintivo de apertura. */
+  badge: 1.5,
+  /** Los flotantes cierran la entrada, cuando la página ya está montada. */
+  floating: 2.1,
+} as const
 
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },

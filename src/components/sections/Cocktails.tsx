@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/animations/Reveal'
+import { Sequence, Step } from '@/components/animations/Sequence'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
@@ -33,32 +33,32 @@ export function Cocktails() {
             />
           </div>
 
-          <div className="col-span-12 lg:col-span-5 lg:col-start-8">
-            <Reveal>
+          <Sequence className="col-span-12 lg:col-span-5 lg:col-start-8">
+            <Step>
               <Eyebrow index={cocktails.index}>{cocktails.eyebrow}</Eyebrow>
-            </Reveal>
+            </Step>
 
-            <Reveal delay={0.08}>
+            <Step>
               <Heading
                 id={TITLE_ID}
                 lead={cocktails.title[0]}
                 accent={cocktails.title[1]}
                 className="mt-7"
               />
-            </Reveal>
+            </Step>
 
-            <Reveal delay={0.14}>
+            <Step>
               <p className="mt-8 max-w-prose text-lead text-gray">{cocktails.body}</p>
-            </Reveal>
+            </Step>
 
             {cocktails.cta ? (
-              <Reveal delay={0.2}>
+              <Step>
                 <Button href={cocktails.cta.href} variant="ghost" className="mt-10">
                   {cocktails.cta.label}
                 </Button>
-              </Reveal>
+              </Step>
             ) : null}
-          </div>
+          </Sequence>
         </div>
       </Container>
     </Section>

@@ -1,3 +1,4 @@
+import { Sequence, Step } from '@/components/animations/Sequence'
 import { Container } from '@/components/ui/Container'
 import { Divider } from '@/components/ui/Divider'
 import { Logo } from '@/components/ui/Logo'
@@ -19,26 +20,28 @@ export function Footer() {
   return (
     <footer className="border-t border-line bg-black">
       <Container className="py-16 lg:py-20">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-4">
+        <Sequence className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+          <Step className="lg:col-span-4">
             <Logo decorative className="w-32 text-white" />
             <p className="mt-6 max-w-[24ch] serif-accent text-lead text-muted">{site.tagline}</p>
-          </div>
+          </Step>
 
-          <nav aria-label="Pie de página" className="lg:col-span-2 lg:col-start-6">
-            <h2 className={columnTitle}>Explorar</h2>
-            <ul className="mt-5 flex flex-col gap-3.5 text-eyebrow uppercase">
-              {footerLinks.map((link) => (
-                <li key={link.id}>
-                  <a href={link.href} className={columnLink}>
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <Step className="lg:col-span-2 lg:col-start-6">
+            <nav aria-label="Pie de página">
+              <h2 className={columnTitle}>Explorar</h2>
+              <ul className="mt-5 flex flex-col gap-3.5 text-eyebrow uppercase">
+                {footerLinks.map((link) => (
+                  <li key={link.id}>
+                    <a href={link.href} className={columnLink}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </Step>
 
-          <div className="lg:col-span-2">
+          <Step className="lg:col-span-2">
             <h2 className={columnTitle}>Contacto</h2>
             <ul className="mt-5 flex flex-col gap-3.5 text-eyebrow uppercase">
               {socialLinks.map((link) => (
@@ -59,9 +62,9 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </Step>
 
-          <div className="lg:col-span-3 lg:col-start-10">
+          <Step className="lg:col-span-3 lg:col-start-10">
             <h2 className={columnTitle}>Visítanos</h2>
 
             <p className="mt-5 flex items-center gap-3 text-eyebrow text-white/85 uppercase">
@@ -84,8 +87,8 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
-        </div>
+          </Step>
+        </Sequence>
 
         <Divider className="mt-16" />
 

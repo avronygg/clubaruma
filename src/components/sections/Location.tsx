@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/animations/Reveal'
+import { Sequence, Step } from '@/components/animations/Sequence'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
@@ -35,25 +35,25 @@ export function Location() {
     <Section id={location.id} aria-labelledby={TITLE_ID}>
       <Container>
         <div className="grid grid-cols-12 items-center gap-x-8 gap-y-12">
-          <div className="col-span-12 lg:col-span-5">
-            <Reveal>
+          <Sequence className="col-span-12 lg:col-span-5">
+            <Step>
               <Eyebrow index={location.index}>{location.eyebrow}</Eyebrow>
-            </Reveal>
+            </Step>
 
-            <Reveal delay={0.08}>
+            <Step>
               <Heading
                 id={TITLE_ID}
                 lead={location.title[0]}
                 accent={location.title[1]}
                 className="mt-7"
               />
-            </Reveal>
+            </Step>
 
-            <Reveal delay={0.14}>
+            <Step>
               <p className="mt-8 max-w-prose text-lead text-gray">{location.body}</p>
-            </Reveal>
+            </Step>
 
-            <Reveal delay={0.2}>
+            <Step>
               <Button
                 href={contact.mapsDirections}
                 target="_blank"
@@ -63,11 +63,11 @@ export function Location() {
               >
                 {location.cta.label}
               </Button>
-            </Reveal>
-          </div>
+            </Step>
+          </Sequence>
 
-          <div className="col-span-12 lg:col-span-6 lg:col-start-7">
-            <Reveal delay={0.1}>
+          <Sequence className="col-span-12 lg:col-span-6 lg:col-start-7">
+            <Step>
               <div className="group relative">
                 <span
                   aria-hidden="true"
@@ -91,8 +91,8 @@ export function Location() {
                   />
                 </div>
               </div>
-            </Reveal>
-          </div>
+            </Step>
+          </Sequence>
         </div>
       </Container>
     </Section>

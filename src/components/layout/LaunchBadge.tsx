@@ -1,8 +1,9 @@
 import { m } from 'motion/react'
 
+import { useOverture } from '@/components/layout/Overture'
 import { launch } from '@/data/site'
 import { cn } from '@/lib/cn'
-import { DURATION, EASE } from '@/lib/motion'
+import { DURATION, EASE, OVERTURE } from '@/lib/motion'
 
 type LaunchBadgeProps = {
   /** Se retira mientras el menú móvil ocupa la pantalla. */
@@ -20,12 +21,20 @@ type LaunchBadgeProps = {
  * tiene la cabecera encima y el botón flotante abajo.
  */
 export function LaunchBadge({ hidden = false }: LaunchBadgeProps) {
+  const { ready } = useOverture()
+  // Cierra la obertura: no aparece hasta que la portada ha terminado de montarse.
+  const visible = ready && !hidden
+
   return (
     <m.p
       aria-hidden={hidden}
       initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: hidden ? 0 : 1, y: hidden ? -8 : 0 }}
-      transition={{ duration: DURATION.ui, ease: EASE.expensive, delay: hidden ? 0 : 0.6 }}
+      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -8 }}
+      transition={{
+        duration: DURATION.ui,
+        ease: EASE.expensive,
+        delay: visible ? OVERTURE.badge : 0,
+      }}
       className={cn(
         'pointer-events-none fixed inset-x-0 z-40 flex justify-center px-gutter',
         'top-[calc(var(--spacing-nav)+0.75rem)]',

@@ -1,12 +1,13 @@
 import { m } from 'motion/react'
 
 import { MagneticButton } from '@/components/animations/MagneticButton'
+import { useOverture } from '@/components/layout/Overture'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { hero } from '@/data/home'
 import { heroDesktop, heroMobile } from '@/data/media'
 import { buildSrcSet, fallbackSrc } from '@/lib/images'
-import { DURATION, EASE, STAGGER, staggerContainer } from '@/lib/motion'
+import { DURATION, EASE, OVERTURE, staggerContainer } from '@/lib/motion'
 
 /**
  * Corte de dirección de arte.
@@ -38,13 +39,15 @@ const rise = {
  * que apagaría la fotografía.
  */
 export function Hero() {
+  const { ready } = useOverture()
+
   return (
     <section id="inicio" className="relative isolate min-h-svh w-full overflow-hidden bg-black">
       {/* --- Fotografía --------------------------------------------------- */}
       <m.div
         className="absolute inset-0 -z-10"
         initial={{ scale: 1.08 }}
-        animate={{ scale: 1 }}
+        animate={ready ? { scale: 1 } : { scale: 1.08 }}
         transition={{ duration: 2.6, ease: EASE.expensive }}
       >
         <picture className="block h-full w-full">
@@ -93,22 +96,27 @@ export function Hero() {
 
       {/* --- Contenido ------------------------------------------------------ */}
       <m.div
-        variants={staggerContainer(STAGGER.loose, 0.4)}
+        variants={staggerContainer(OVERTURE.heroStep, OVERTURE.hero)}
         initial="hidden"
-        animate="visible"
+        animate={ready ? 'visible' : 'hidden'}
         className="relative flex min-h-svh flex-col"
       >
         <Container className="flex flex-1 flex-col items-center justify-end pt-nav pb-[clamp(2rem,5vh,4.5rem)] text-center">
-          <h1 className="m-0 flex flex-col items-center">
-            {/* Cada mitad en su propia línea. Dejado al ajuste natural, el
-                titular partía como «Sé VIP desde la / primera noche.» y
-                abandonaba el artículo al final del renglón. */}
-            <m.span
-              variants={rise}
-              className="block max-w-[24ch] text-display font-light text-white"
-            >
-              <span className="block">{hero.title[0]}</span>
-              <span className="block title-accent">{hero.title[1]}</span>
+          {/* Cada mitad en su propia línea y con su propia entrada: llega
+              primero la sans en blanco y después la cursiva en rojo. Dejado al
+              ajuste natural, el titular partía por donde no debía y abandonaba
+              el artículo al final del renglón.
+
+              El tamaño vive en el h1 y no en las líneas porque `title-accent`
+              mide 1.16em, y el em se resuelve contra el padre: colgando las dos
+              líneas directamente del h1, sin el tamaño ahí, la cursiva se
+              calcularía sobre el cuerpo de texto. */}
+          <h1 className="m-0 flex max-w-[24ch] flex-col items-center text-display font-light text-white">
+            <m.span variants={rise} className="block">
+              {hero.title[0]}
+            </m.span>
+            <m.span variants={rise} className="block title-accent">
+              {hero.title[1]}
             </m.span>
           </h1>
 

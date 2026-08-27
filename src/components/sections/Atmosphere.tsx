@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/animations/Reveal'
+import { Sequence, Step } from '@/components/animations/Sequence'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Figure } from '@/components/ui/Figure'
@@ -21,19 +21,19 @@ export function Atmosphere() {
     <Section id={atmosphere.id} aria-labelledby={TITLE_ID}>
       <Container>
         <div className="grid grid-cols-12 gap-x-8 gap-y-12">
-          <div className="col-span-12 lg:col-span-6">
-            <Reveal>
+          <Sequence className="col-span-12 lg:col-span-6">
+            <Step>
               <Eyebrow index={atmosphere.index}>{atmosphere.eyebrow}</Eyebrow>
-            </Reveal>
-            <Reveal delay={0.08}>
+            </Step>
+            <Step>
               <Heading
                 id={TITLE_ID}
                 lead={atmosphere.title[0]}
                 accent={atmosphere.title[1]}
                 className="mt-7"
               />
-            </Reveal>
-          </div>
+            </Step>
+          </Sequence>
 
           <div className="col-span-12 lg:col-span-7 lg:mt-8">
             <Figure
@@ -46,10 +46,10 @@ export function Atmosphere() {
             />
           </div>
 
-          <div className="col-span-12 lg:col-span-4 lg:col-start-9 lg:mt-24 lg:self-end">
-            <Reveal delay={0.1}>
+          <Sequence className="col-span-12 lg:col-span-4 lg:col-start-9 lg:mt-24 lg:self-end">
+            <Step>
               <p className="max-w-prose text-lead text-gray">{atmosphere.body}</p>
-            </Reveal>
+            </Step>
 
             <Figure
               media={barDetail}
@@ -61,7 +61,7 @@ export function Atmosphere() {
               from="right"
               hover
             />
-          </div>
+          </Sequence>
         </div>
       </Container>
     </Section>

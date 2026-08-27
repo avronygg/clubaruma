@@ -9,9 +9,11 @@ import { WaitlistModal } from '@/components/forms/WaitlistModal'
 import { Footer } from '@/components/layout/Footer'
 import { LaunchBadge } from '@/components/layout/LaunchBadge'
 import { Preloader } from '@/components/layout/Preloader'
+import { useOverture } from '@/components/layout/Overture'
 import { NavBar } from '@/components/navigation/NavBar'
 import { ScrollProgress } from '@/components/navigation/ScrollProgress'
 import { features } from '@/data/site'
+import { OVERTURE } from '@/lib/motion'
 import { useWaitlistDialog } from '@/hooks/useWaitlistDialog'
 
 /**
@@ -32,6 +34,10 @@ export function RootLayout() {
   const outlet = useOutlet()
 
   const dialog = useWaitlistDialog(features.entryPopupDelay, features.entryPopup)
+  const { begin, ready } = useOverture()
+  // Los flotantes son lo último en llegar: aparecen sobre una página ya
+  // montada, no compitiendo con ella mientras se monta.
+  const [flotantes, setFlotantes] = useState(false)
 
   const closeMenu = useCallback(() => setMenuOpen(false), [])
   const toggleMenu = useCallback(() => setMenuOpen((open) => !open), [])
@@ -43,6 +49,19 @@ export function RootLayout() {
     setMenuOpen(false)
   }
 
+  // Sin cortina no hay a quién esperar: la secuencia arranca en el primer
+  // efecto, un fotograma después del montaje.
+  useEffect(() => {
+    if (!features.preloader) begin()
+  }, [begin])
+
+  useEffect(() => {
+    if (!ready) return
+
+    const timer = window.setTimeout(() => setFlotantes(true), OVERTURE.floating * 1000)
+    return () => window.clearTimeout(timer)
+  }, [ready])
+
   // Cambio de ruta: vuelta al principio del documento.
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -50,7 +69,7 @@ export function RootLayout() {
 
   return (
     <>
-      {features.preloader ? <Preloader /> : null}
+      {features.preloader ? <Preloader onDone={begin} /> : null}
       {features.scrollProgress ? <ScrollProgress /> : null}
 
       <a
@@ -67,7 +86,7 @@ export function RootLayout() {
 
         <div inert={menuOpen}>
           <main id="contenido">
-            <AnimatePresence mode="wait" initial={false}>
+            <AnimatePresence mode="wait">
               <PageTransition key={location.pathname}>{outlet}</PageTransition>
             </AnimatePresence>
           </main>
@@ -77,14 +96,14 @@ export function RootLayout() {
       </div>
 
       {features.floatingReel ? (
-        <FloatingReel onJoin={dialog.show} hidden={dialog.open || menuOpen} />
+        <FloatingReel onJoin={dialog.show} hidden={dialog.open || menuOpen || !flotantes} />
       ) : null}
 
       {features.waitlistFab ? (
         <WaitlistFab
           onOpen={dialog.show}
           bubbleDelay={features.fabBubbleDelay}
-          hidden={dialog.open || menuOpen}
+          hidden={dialog.open || menuOpen || !flotantes}
           submitted={dialog.submitted}
         />
       ) : null}

@@ -1,6 +1,7 @@
 import { domAnimation, LazyMotion, MotionConfig } from 'motion/react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
+import { OvertureProvider } from '@/components/layout/Overture'
 import { RootLayout } from '@/components/layout/RootLayout'
 import HomePage from '@/pages/HomePage'
 import NotFoundPage from '@/pages/NotFoundPage'
@@ -25,11 +26,12 @@ export function App() {
   return (
     <MotionConfig reducedMotion="user">
       <LazyMotion features={domAnimation} strict>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<RootLayout />}>
-              <Route index element={<HomePage />} />
-              {/*
+        <OvertureProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<RootLayout />}>
+                <Route index element={<HomePage />} />
+                {/*
                 Rutas futuras:
                 <Route path="experiencia" element={<ExperiencePage />} />
                 <Route path="vip" element={<VipPage />} />
@@ -38,10 +40,11 @@ export function App() {
                 <Route path="galeria" element={<GalleryPage />} />
                 <Route path="contacto" element={<ContactPage />} />
               */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </OvertureProvider>
       </LazyMotion>
     </MotionConfig>
   )

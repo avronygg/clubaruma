@@ -1,5 +1,5 @@
 import { MagneticButton } from '@/components/animations/MagneticButton'
-import { Reveal } from '@/components/animations/Reveal'
+import { Sequence, Step } from '@/components/animations/Sequence'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
@@ -37,18 +37,18 @@ export function Vip() {
       />
 
       <Container>
-        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+        <Sequence className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <Figure
             media={vipCard}
             sizes="(min-width: 1024px) 26rem, 78vw"
             className="w-[min(78vw,26rem)]"
           />
 
-          <Reveal delay={0.06} className="mt-10">
+          <Step className="mt-10">
             <Eyebrow index={vip.index}>{vip.eyebrow}</Eyebrow>
-          </Reveal>
+          </Step>
 
-          <Reveal delay={0.12}>
+          <Step>
             <Heading
               id={TITLE_ID}
               lead={vip.title[0]}
@@ -56,20 +56,20 @@ export function Vip() {
               align="center"
               className="mt-7"
             />
-          </Reveal>
+          </Step>
 
-          <Reveal delay={0.18}>
+          <Step>
             <p className="mt-8 max-w-[36ch] text-lead text-gray">{vip.body}</p>
-          </Reveal>
+          </Step>
 
           {vip.cta ? (
-            <Reveal delay={0.24}>
+            <Step>
               <MagneticButton className="mt-11">
                 <Button href={vip.cta.href}>{vip.cta.label}</Button>
               </MagneticButton>
-            </Reveal>
+            </Step>
           ) : null}
-        </div>
+        </Sequence>
       </Container>
     </Section>
   )

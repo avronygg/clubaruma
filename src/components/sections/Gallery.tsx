@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/animations/Reveal'
+import { Sequence, Step } from '@/components/animations/Sequence'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Figure } from '@/components/ui/Figure'
@@ -43,25 +43,25 @@ export function Gallery() {
   return (
     <Section id={gallerySection.id} aria-labelledby={TITLE_ID}>
       <Container>
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <Sequence className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <Reveal>
+            <Step>
               <Eyebrow index={gallerySection.index}>{gallerySection.eyebrow}</Eyebrow>
-            </Reveal>
-            <Reveal delay={0.08}>
+            </Step>
+            <Step>
               <Heading
                 id={TITLE_ID}
                 lead={gallerySection.title[0]}
                 accent={gallerySection.title[1]}
                 className="mt-7"
               />
-            </Reveal>
+            </Step>
           </div>
 
-          <Reveal delay={0.14}>
+          <Step>
             <p className="text-label text-muted-strong uppercase">{gallerySection.note}</p>
-          </Reveal>
-        </div>
+          </Step>
+        </Sequence>
 
         <ul className="mt-14 grid grid-cols-12 gap-x-6 gap-y-10 sm:mt-20 lg:gap-x-8">
           {galleryItems.map((item, index) => (

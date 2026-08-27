@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/animations/Reveal'
+import { Sequence, Step } from '@/components/animations/Sequence'
 import { Container } from '@/components/ui/Container'
 import { Divider } from '@/components/ui/Divider'
 import { Eyebrow } from '@/components/ui/Eyebrow'
@@ -23,19 +23,19 @@ export function Experience() {
     <Section id={experience.id} aria-labelledby={TITLE_ID}>
       <Container>
         <div className="grid grid-cols-12 gap-x-8 gap-y-12 lg:gap-y-16">
-          <div className="col-span-12 lg:col-span-4 lg:self-end lg:pb-4">
-            <Reveal>
+          <Sequence className="col-span-12 lg:col-span-4 lg:self-end lg:pb-4">
+            <Step>
               <Eyebrow index={experience.index}>{experience.eyebrow}</Eyebrow>
-            </Reveal>
-            <Reveal delay={0.08}>
+            </Step>
+            <Step>
               <Heading
                 id={TITLE_ID}
                 lead={experience.title[0]}
                 accent={experience.title[1]}
                 className="mt-7"
               />
-            </Reveal>
-          </div>
+            </Step>
+          </Sequence>
 
           <div className="relative col-span-12 lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1">
             <Figure
@@ -57,12 +57,12 @@ export function Experience() {
             />
           </div>
 
-          <div className="col-span-12 lg:col-span-4 lg:col-start-1 lg:row-start-2 lg:self-start">
-            <Reveal delay={0.12}>
+          <Sequence className="col-span-12 lg:col-span-4 lg:col-start-1 lg:row-start-2 lg:self-start">
+            <Step>
               <p className="max-w-prose text-lead text-gray">{experience.body}</p>
-            </Reveal>
+            </Step>
 
-            <Reveal delay={0.2}>
+            <Step>
               <dl className="mt-12 max-w-md">
                 {experienceDetails.map((detail) => (
                   <div key={detail.id}>
@@ -75,8 +75,8 @@ export function Experience() {
                 ))}
                 <Divider />
               </dl>
-            </Reveal>
-          </div>
+            </Step>
+          </Sequence>
         </div>
       </Container>
     </Section>

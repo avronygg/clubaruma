@@ -1,4 +1,4 @@
-import { Reveal } from '@/components/animations/Reveal'
+import { Sequence, Step } from '@/components/animations/Sequence'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Figure } from '@/components/ui/Figure'
@@ -21,24 +21,24 @@ export function Music() {
     <Section id={music.id} aria-labelledby={TITLE_ID} className="bg-black-soft">
       <Container>
         <div className="grid grid-cols-12 items-center gap-x-8 gap-y-12">
-          <div className="col-span-12 lg:col-span-5">
-            <Reveal>
+          <Sequence className="col-span-12 lg:col-span-5">
+            <Step>
               <Eyebrow index={music.index}>{music.eyebrow}</Eyebrow>
-            </Reveal>
+            </Step>
 
-            <Reveal delay={0.08}>
+            <Step>
               <Heading
                 id={TITLE_ID}
                 lead={music.title[0]}
                 accent={music.title[1]}
                 className="mt-7"
               />
-            </Reveal>
+            </Step>
 
-            <Reveal delay={0.14}>
+            <Step>
               <p className="mt-8 max-w-prose text-lead text-gray">{music.body}</p>
-            </Reveal>
-          </div>
+            </Step>
+          </Sequence>
 
           <div className="col-span-12 lg:col-span-6 lg:col-start-7">
             <Figure
