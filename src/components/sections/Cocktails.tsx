@@ -21,7 +21,7 @@ export function Cocktails() {
   return (
     <Section id={cocktails.id} aria-labelledby={TITLE_ID} className="bg-black-soft">
       <Container>
-        <div className="grid grid-cols-12 items-center gap-x-8 gap-y-12">
+        <div className="grid grid-cols-12 items-center gap-x-0 gap-y-12 lg:gap-x-8">
           <div className="col-span-12 lg:col-span-6">
             <Figure
               media={cocktail}

@@ -22,7 +22,7 @@ export function Experience() {
   return (
     <Section id={experience.id} aria-labelledby={TITLE_ID}>
       <Container>
-        <div className="grid grid-cols-12 gap-x-8 gap-y-12 lg:gap-y-16">
+        <div className="grid grid-cols-12 gap-x-0 gap-y-12 lg:gap-x-8 lg:gap-y-16">
           <Sequence className="col-span-12 lg:col-span-4 lg:self-end lg:pb-4">
             <Step>
               <Eyebrow index={experience.index}>{experience.eyebrow}</Eyebrow>

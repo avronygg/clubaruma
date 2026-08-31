@@ -63,7 +63,7 @@ export function Gallery() {
           </Step>
         </Sequence>
 
-        <ul className="mt-14 grid grid-cols-12 gap-x-6 gap-y-10 sm:mt-20 lg:gap-x-8">
+        <ul className="mt-14 grid grid-cols-12 gap-x-0 gap-y-10 sm:mt-20 md:gap-x-6 lg:gap-x-8">
           {galleryItems.map((item, index) => (
             <li
               key={item.id}

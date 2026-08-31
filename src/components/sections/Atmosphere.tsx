@@ -20,7 +20,7 @@ export function Atmosphere() {
   return (
     <Section id={atmosphere.id} aria-labelledby={TITLE_ID}>
       <Container>
-        <div className="grid grid-cols-12 gap-x-8 gap-y-12">
+        <div className="grid grid-cols-12 gap-x-0 gap-y-12 lg:gap-x-8">
           <Sequence className="col-span-12 lg:col-span-6">
             <Step>
               <Eyebrow index={atmosphere.index}>{atmosphere.eyebrow}</Eyebrow>

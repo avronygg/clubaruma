@@ -14,9 +14,10 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,css,json,md,html}\"",
     "typecheck": "tsc -b --noEmit",
     "images": "node scripts/generate-images.mjs",
-    "check": "npm run typecheck && npm run lint && npm run format:check",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm run check:responsive",
     "sync:fonts": "node scripts/sync-fonts.mjs",
-    "video": "node scripts/generate-video.mjs"
+    "video": "node scripts/generate-video.mjs",
+    "check:responsive": "node scripts/check-responsive.mjs"
   },
   "dependencies": {
     "@fontsource-variable/cormorant-garamond": "^5.3.0",
