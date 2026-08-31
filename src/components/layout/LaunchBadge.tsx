@@ -1,6 +1,6 @@
 import { m } from 'motion/react'
 
-import { useOverture } from '@/components/layout/Overture'
+import { useOverture } from '@/hooks/useOverture'
 import { launch } from '@/data/site'
 import { cn } from '@/lib/cn'
 import { DURATION, EASE, OVERTURE } from '@/lib/motion'

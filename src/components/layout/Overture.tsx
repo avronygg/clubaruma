@@ -1,13 +1,6 @@
-import { createContext, use, useMemo, useState, type ReactNode } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 
-type OvertureValue = {
-  /** `true` cuando la cortina se ha ido y la página puede empezar a montarse. */
-  ready: boolean
-  /** Lo llama el preloader al retirarse. */
-  begin: () => void
-}
-
-const OvertureContext = createContext<OvertureValue>({ ready: true, begin: () => {} })
+import { OvertureContext } from '@/hooks/useOverture'
 
 /**
  * Obertura: quién da la salida a la secuencia de entrada.
@@ -24,21 +17,13 @@ const OvertureContext = createContext<OvertureValue>({ ready: true, begin: () =>
  *
  * Va por contexto y no por props porque quien anima —la portada— cuelga del
  * `outlet` del router, a varios niveles del preloader.
+ *
+ * El contexto y el hook viven en `hooks/useOverture.ts`: aquí solo puede haber
+ * componentes, o Vite deja de refrescar en caliente.
  */
 export function OvertureProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false)
   const value = useMemo(() => ({ ready, begin: () => setReady(true) }), [ready])
 
   return <OvertureContext value={value}>{children}</OvertureContext>
-}
-
-/**
- * `ready` es `false` mientras la cortina siga puesta.
- *
- * Quien lo use debe partir de un estado oculto y pasar al visible cuando pase
- * a `true`, nunca al revés: si el preloader está desactivado, `begin` se llama
- * en el primer efecto y la espera dura un fotograma.
- */
-export function useOverture(): OvertureValue {
-  return use(OvertureContext)
 }

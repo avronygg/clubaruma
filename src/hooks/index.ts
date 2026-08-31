@@ -1,6 +1,7 @@
 export { useWaitlistDialog } from './useWaitlistDialog'
 export { useLockBodyScroll } from './useLockBodyScroll'
 export { useHasFinePointer, useMediaQuery } from './useMediaQuery'
+export { useOverture } from './useOverture'
 export { usePrefersReducedMotion } from './usePrefersReducedMotion'
 export { useScrollDirection } from './useScrollDirection'
 export { useScrolled } from './useScrolled'

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
 import { navigationItems, primaryAction } from '@/data/navigation'
 import { useScrolled } from '@/hooks/useScrolled'
-import { useOverture } from '@/components/layout/Overture'
+import { useOverture } from '@/hooks/useOverture'
 import { cn } from '@/lib/cn'
 import { EASE, OVERTURE } from '@/lib/motion'
 

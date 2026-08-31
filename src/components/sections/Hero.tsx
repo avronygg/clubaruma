@@ -1,7 +1,7 @@
 import { m } from 'motion/react'
 
 import { MagneticButton } from '@/components/animations/MagneticButton'
-import { useOverture } from '@/components/layout/Overture'
+import { useOverture } from '@/hooks/useOverture'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
 import { hero } from '@/data/home'
