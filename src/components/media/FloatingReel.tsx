@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { Logo } from '@/components/ui/Logo'
 import { reel } from '@/data/home'
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll'
+import { useScrollDirection } from '@/hooks/useScrollDirection'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { cn } from '@/lib/cn'
 import { DURATION, EASE } from '@/lib/motion'
@@ -43,12 +44,23 @@ type FloatingReelProps = {
  * Son dos archivos distintos a propósito. El de la miniatura pesa 130 kB y no
  * lleva pista de audio, porque se descarga siempre; el de 1,2 MB con sonido
  * solo se pide cuando alguien decide verlo. Ver `scripts/generate-video.mjs`.
+ *
+ * ── Se aparta mientras lees ────────────────────────────────────────────────
+ * La tarjeta tiene que verse grande, y una tarjeta grande abajo a la izquierda
+ * se come el arranque de cada línea de texto. En una pantalla de 360 px son un
+ * tercio del renglón, y las dos cosas no caben a la vez.
+ *
+ * Se resuelve como lo resuelven las cabeceras de las webs móviles: se retira
+ * al bajar y vuelve al subir. Quien está leyendo va hacia abajo, así que la
+ * tarjeta no le tapa nada; quien vuelve sobre sus pasos o busca algo la
+ * encuentra enseguida. No hace falta encogerla ni esconderla del todo.
  */
 export function FloatingReel({ onJoin, hidden = false }: FloatingReelProps) {
   const titleId = useId()
   const [expanded, setExpanded] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [pasadoElHero, setPasadoElHero] = useState(false)
+  const direccion = useScrollDirection()
   const reducedMotion = usePrefersReducedMotion()
   const dialogRef = useRef<HTMLDivElement>(null)
   const previousFocus = useRef<HTMLElement | null>(null)
@@ -114,6 +126,9 @@ export function FloatingReel({ onJoin, hidden = false }: FloatingReelProps) {
           'transition-[opacity,translate] duration-(--duration-reveal) ease-expensive',
           (hidden || expanded) && 'pointer-events-none opacity-0',
           !pasadoElHero && 'max-sm:pointer-events-none max-sm:-translate-x-6 max-sm:opacity-0',
+          // Se aparta hacia su esquina en lugar de desvanecerse sin más: el
+          // movimiento lateral dice hacia dónde se ha ido y de dónde volverá.
+          direccion === 'down' && 'pointer-events-none -translate-x-8 opacity-0',
         )}
       >
         <button
